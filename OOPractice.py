@@ -310,15 +310,20 @@ class Gen(Random):
         Gen.save(self,t_dekrip,self.dir_token2)
         print('hasil dekripsi:\n'+t_dekrip.decode())
 
-    def fast(self):
+   def fast(self):
         self.token = Gen.get(self)
         self.key = Gen.loadkey(self)
 
     def main(self):
         while True:
             try:
-                process = input('token melalui file?(y/n)')
-                if process.casefold() == 'y':
+                process = input('Proses token berupa file(y/n)\nMenulis kunci(g)')
+                if process.casefold() == 'g':
+                    self.dir_key = input('Masukkan nama key\n')+'.key'
+                    self.key = Gen.writekey(self)
+                    print('berhasil')
+                    Gen.hapus(self)
+                elif process.casefold() == 'y':
                     self.dir_token = input('\nMasukkan nama file token:\n')+'.txt'
                     self.dir_key = input('Masukkan key\n')+'.key'
                     action = input('Enkripsi atau Dekripsi?(e/d)\n')
@@ -342,13 +347,13 @@ class Gen(Random):
                         Gen.dekrip(self,self.key,self.token)
                     else:
                         print('masukkan input yang benar')
-                out = input('\nkeluar?(q for quit)')
+                out = input('keluar?(q)')
                 if out.casefold() == 'q':
+                    Gen.hapus(self)
                     break
-                Gen.hapus(self)
             except:
                 print('masukkan input yang benar')
-                out = input('keluar?(q for quit)')
+                out = input('keluar?(q)')
                 if out.casefold() == 'q':
                     Gen.hapus(self)
                     break
